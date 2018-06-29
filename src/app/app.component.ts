@@ -11,12 +11,12 @@ export class AppComponent {
     {
       name: 'Testserver',
       capacity: 10,
-      id: this.generateId()
+      id: '0'
     },
     {
-      name: 'Liveserver',
+      name: 'From GET:localhost:3000/angualr/data.json',
       capacity: 100,
-      id: this.generateId()
+      id: '1'
     }
   ];
 
@@ -34,8 +34,12 @@ export class AppComponent {
   onGet() {
     this.serverService.getServers()
       .subscribe(
-        data => console.log(data),
+        data => {
+          console.log(data);
+          this.servers[1].id = JSON.stringify(data, undefined, 2);
+        },
         (error) => console.log(error)
+        
       );
   }
 
@@ -43,7 +47,7 @@ export class AppComponent {
     this.servers.push({
       name: name,
       capacity: 50,
-      id: this.generateId()
+      id: '0'
     });
   }
 
