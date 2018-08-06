@@ -1,5 +1,6 @@
 #!/bin/bash
 
+project='angular-http-client'
 find . | sed -e 's/^\.\///g' | grep -v node_modules > project.list.all
 rm -f project.list
 
@@ -8,7 +9,9 @@ do
 	git ls-files --error-unmatch $f > /dev/null 2>&1
 	if [ $? -eq 0 ] 
 	then
-		echo $f >> project.list
+		if [ -f $f ]; then
+			echo $project/$f >> project.list
+		fi
 	fi 
 done
 
